@@ -12,6 +12,9 @@ if ($conn->connect_error) {
     die("Savienojuma kļūda: " . $conn->connect_error);
 }
 
+$sql_posts = "SELECT id, title, content FROM post";
+$result_posts = $conn->query($sql_posts);
+
 ?>
 
 <!DOCTYPE html>
