@@ -22,6 +22,10 @@ if ($result_posts->num_rows > 0) {
         echo "<li>";
         echo "<strong>" . htmlspecialchars($row_post['title']) . "</strong><br>";
         echo "<p>" . nl2br(htmlspecialchars($row_post['content'])) . "</p>";
+
+        $post_id = $row_post['id'];
+        $sql_comments = "SELECT comment_id, content FROM comments WHERE post_id = $post_id";
+        $result_comments = $conn->query($sql_comments);
     }
 }
 
