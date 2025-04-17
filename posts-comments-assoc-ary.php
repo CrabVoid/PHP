@@ -4,10 +4,8 @@ $username = "RalfsEgle";
 $password = "password";
 $dbname = "php27032025";
 
-// Izveido savienojumu
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Pārbaudām savienojumu
 if ($conn->connect_error) {
     die("Savienojuma kļūda: " . $conn->connect_error);
 }
@@ -28,7 +26,7 @@ if ($result_posts->num_rows > 0) {
         $result_comments = $conn->query($sql_comments);
 
         if ($result_comments->num_rows > 0) {
-            echo "<ul>"; // sākam komentāru sarakstu
+            echo "<ul>";
             while ($row_comment = $result_comments->fetch_assoc()) {
                 echo "<li>" . htmlspecialchars($row_comment['content']) . "</li>";
             }
@@ -41,8 +39,9 @@ if ($result_posts->num_rows > 0) {
 } else {
     echo "<li>Nav pievienotu postu.</li>";
 }
+echo "</ul>";
 
-
+$conn->close();
 ?>
 
 <!DOCTYPE html>
