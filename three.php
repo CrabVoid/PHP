@@ -113,3 +113,62 @@ foreach ($posts_with_comments as $post) {
     echo "<h3>Komentāri:</h3>";
     echo renderComments($post['comments']);
 }
+
+class Post
+{
+    public $id;
+    public $title;
+    public $content;
+    public $comments = [];
+
+    public function __construct($id, $title, $content)
+    {
+        $this->id = $id;
+        $this->title = $title;
+        $this->content = $content;
+    }
+
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+    }
+}
+
+class Comment
+{
+    public $id;
+    public $content;
+    public $parent_comment_id;
+    public $children = [];
+
+    public function __construct($id, $content, $parent_comment_id)
+    {
+        $this->id = $id;
+        $this->content = $content;
+        $this->parent_comment_id = $parent_comment_id;
+    }
+
+    public function addChild(Comment $child)
+    {
+        $this->children[] = $child;
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
