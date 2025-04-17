@@ -26,6 +26,14 @@ if ($result_posts->num_rows > 0) {
         $post_id = $row_post['id'];
         $sql_comments = "SELECT comment_id, content FROM comments WHERE post_id = $post_id";
         $result_comments = $conn->query($sql_comments);
+
+        if ($result_comments->num_rows > 0) {
+            echo "<ul>"; // sākam komentāru sarakstu
+            while ($row_comment = $result_comments->fetch_assoc()) {
+                echo "<li>" . htmlspecialchars($row_comment['content']) . "</li>";
+            }
+            echo "</ul>";
+        }
     }
 }
 
