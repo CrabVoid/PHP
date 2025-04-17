@@ -33,8 +33,13 @@ if ($result_posts->num_rows > 0) {
                 echo "<li>" . htmlspecialchars($row_comment['content']) . "</li>";
             }
             echo "</ul>";
+        } else {
+            echo "<p>Nav komentāru.</p>";
         }
+        echo "</li>";
     }
+} else {
+    echo "<li>Nav pievienotu postu.</li>";
 }
 
 
