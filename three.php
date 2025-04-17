@@ -62,3 +62,30 @@ function getPostsWithComments($conn)
 }
 
 $posts_with_comments = getPostsWithComments($conn);
+
+function buildCommentHierarchy($comments)
+{
+    $hierarchy = [];
+    $mappedComments = [];
+
+    foreach ($comments as $comment) {
+        $mappedComments[$comment['id']] = $comment;
+        $mappedComments[$comment['id']]['children'] = [];
+    }
+
+    foreach ($comments as $comment) {
+        if ($comment['parent_comment_id']) {
+            // Piešķiram bērnu komentāru vecākam
+            $mappedComments[$comment['parent_comment_id']]['children'][] = &$mappedComments[$comment['id']];
+        } else {
+            // Pievienojam komentāru augstākā līmeņa hierarhijai
+            $hierarchy[] = &$mappedComments[$comment['id']];
+        }
+    }
+
+    return $hierarchy;
+}
+
+foreach ($posts_with_comments as $post_id => $post) {
+    $posts_with_comments[$post_id]['comments'] = buildCommentHierarchy($post['comments']);
+}
