@@ -89,3 +89,27 @@ function buildCommentHierarchy($comments)
 foreach ($posts_with_comments as $post_id => $post) {
     $posts_with_comments[$post_id]['comments'] = buildCommentHierarchy($post['comments']);
 }
+
+function renderComments($comments)
+{
+    $html = "<ul>";
+    foreach ($comments as $comment) {
+        $html .= "<li>";
+        $html .= htmlspecialchars($comment['content']);
+
+        if (!empty($comment['children'])) {
+            $html .= renderComments($comment['children']); // Rekursīvi izvada bērnu komentārus
+        }
+
+        $html .= "</li>";
+    }
+    $html .= "</ul>";
+    return $html;
+}
+
+foreach ($posts_with_comments as $post) {
+    echo "<h2>" . htmlspecialchars($post['title']) . "</h2>";
+    echo "<p>" . htmlspecialchars($post['content']) . "</p>";
+    echo "<h3>Komentāri:</h3>";
+    echo renderComments($post['comments']);
+}
