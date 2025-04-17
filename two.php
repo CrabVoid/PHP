@@ -11,3 +11,21 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Savienojums neizdevās: " . $conn->connect_error);
 }
+
+function getPost($conn)
+{
+    $sql = "SELECT * FROM post";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $post = [];
+        while ($row = $result->fetch_assoc()) {
+            $post[] = $row;
+        }
+        return $post;
+    } else {
+        return [];
+    }
+}
+
+$posts = getPost($conn);
