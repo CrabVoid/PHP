@@ -15,6 +15,17 @@ if ($conn->connect_error) {
 $sql_posts = "SELECT id, title, content FROM post";
 $result_posts = $conn->query($sql_posts);
 
+echo "<ul>";
+
+if ($result_posts->num_rows > 0) {
+    while ($row_post = $result_posts->fetch_assoc()) {
+        echo "<li>";
+        echo "<strong>" . htmlspecialchars($row_post['title']) . "</strong><br>";
+        echo "<p>" . nl2br(htmlspecialchars($row_post['content'])) . "</p>";
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
